@@ -21,3 +21,5 @@ flutter:
   assets:
     - assets/utb_logo.png
     - assets/utb_logo_azul.png
+    - assets/onboarding1.jpg
+    - assets/onboarding2.jpg
