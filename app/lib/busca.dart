@@ -1,20 +1,16 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-class Reporte extends StatefulWidget {
-  const Reporte({Key? key}) : super(key: key);
-  @override
-  State<Reporte> createState() => _Reporte();
-}
+class Busca extends StatelessWidget {
+  const Busca({Key? key}) : super(key: key);
 
-class _Reporte extends State<Reporte> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
           Center(
-            child: Text("Reportar"),
+            child: Text("Bucar"),
           )
         ],
       ),

@@ -1,9 +1,27 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:app/reporte.dart';
+import 'package:app/busca.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+  @override
+  State<HomeScreen> createState() => _HomeScreen();
+}
+
+class _HomeScreen extends State<HomeScreen> {
+  late List<Widget> opciones;
+  int opc = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // El orden importa: índice 0 = Reportar, índice 1 = Buscar
+    opciones = [
+      const Reporte(),
+      const Busca(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +66,7 @@ class HomeScreen extends StatelessWidget {
                 color: Colors.grey[600],
               ),
             ),
-            SizedBox(
-              width: 5,
-              height: 5,
-            ),
+            const SizedBox(height: 10),
             Row(
               children: [
                 Expanded(
@@ -62,14 +77,15 @@ class HomeScreen extends StatelessWidget {
                     subtitle:
                         "Sube fotos y detalles de un objeto que encuentres.",
                     actionText: "Crear Reporte",
-                    backgroundImage: AssetImage("assets/onboarding1.jpg"),
-                    onTap: () => {},
+                    backgroundImage: const AssetImage("assets/onboarding1.jpg"),
+                    onTap: () {
+                      setState(() {
+                        opc = 0; // índice de Reporte en opciones
+                      });
+                    },
                   ),
                 ),
-                SizedBox(
-                  width: 20,
-                  height: 20,
-                ),
+                const SizedBox(width: 20),
                 Expanded(
                   child: ActionCard(
                     badgeIcon: Icons.eco,
@@ -78,13 +94,25 @@ class HomeScreen extends StatelessWidget {
                     subtitle:
                         "Navega por la base de datos de objetos encontrados",
                     actionText: "Buscar",
-                    backgroundImage: AssetImage("assets/onboarding2.jpg"),
-                    onTap: () => {},
+                    backgroundImage: const AssetImage("assets/onboarding2.jpg"),
+                    onTap: () {
+                      setState(() {
+                        opc = 1; // índice de Busca en opciones
+                      });
+                    },
                   ),
                 ),
               ],
             ),
-            SizedBox()
+            const SizedBox(height: 20),
+            ColoredBox(
+              color: Colors.blue,
+              child: SizedBox(
+                width: 200,
+                height: 100,
+                child: IndexedStack(index: opc, children: opciones),
+              ),
+            )
           ],
         ),
       ),
@@ -107,34 +135,15 @@ class ActionCard extends StatelessWidget {
     this.overlayOpacity = 0.55,
   });
 
-  /// Ícono que aparece dentro del badge superior.
   final IconData badgeIcon;
-
-  /// Texto del badge superior (ej. "Nuevo Reporte").
   final String badgeText;
-
-  /// Título grande en el medio de la tarjeta.
   final String title;
-
-  /// Texto descriptivo debajo del título.
   final String subtitle;
-
-  /// Texto junto a la flecha en la parte inferior (ej. "Crear Reporte").
   final String actionText;
-
-  /// Imagen de fondo. Puede ser AssetImage, NetworkImage, etc.
   final ImageProvider backgroundImage;
-
-  /// Acción a ejecutar al tocar la tarjeta (navegación, callback, etc.).
   final VoidCallback onTap;
-
-  /// Alto de la tarjeta.
   final double height;
-
-  /// Radio de las esquinas.
   final double borderRadius;
-
-  /// Opacidad de la capa oscura sobre la imagen (0.0 - 1.0).
   final double overlayOpacity;
 
   @override
@@ -150,12 +159,10 @@ class ActionCard extends StatelessWidget {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                // Imagen de fondo
                 Image(
                   image: backgroundImage,
                   fit: BoxFit.cover,
                 ),
-                // Capa oscura para legibilidad del texto
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -168,14 +175,12 @@ class ActionCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                // Contenido
                 Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Badge superior
                       Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 12,
@@ -204,8 +209,6 @@ class ActionCard extends StatelessWidget {
                           ],
                         ),
                       ),
-
-                      // Título y subtítulo
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
@@ -228,7 +231,6 @@ class ActionCard extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          // Acción con flecha
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
