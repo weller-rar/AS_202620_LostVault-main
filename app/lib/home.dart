@@ -29,11 +29,12 @@ class _HomeScreen extends State<HomeScreen> {
       appBar: AppBar(
         toolbarHeight: 100,
         titleSpacing: 0.0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
         title: Image.asset(
           "assets/utb_logo_azul.png",
-          width: 120.0,
-          height: 70.0,
-          fit: BoxFit.cover,
+          height: 90, // ajusta según se vea mejor
+          fit: BoxFit.contain,
         ),
         centerTitle: true,
       ),
@@ -105,14 +106,9 @@ class _HomeScreen extends State<HomeScreen> {
               ],
             ),
             const SizedBox(height: 20),
-            ColoredBox(
-              color: Colors.blue,
-              child: SizedBox(
-                width: 200,
-                height: 100,
-                child: IndexedStack(index: opc, children: opciones),
-              ),
-            )
+            Expanded(
+              child: IndexedStack(index: opc, children: opciones),
+            ),
           ],
         ),
       ),

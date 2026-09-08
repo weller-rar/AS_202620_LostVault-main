@@ -10,11 +10,13 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_spinkit: ^5.2.2
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  
 
 flutter:
   uses-material-design: true
@@ -23,3 +25,4 @@ flutter:
     - assets/utb_logo_azul.png
     - assets/onboarding1.jpg
     - assets/onboarding2.jpg
+    - assets/bolso.jpeg
